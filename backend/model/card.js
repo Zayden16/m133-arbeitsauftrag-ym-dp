@@ -1,8 +1,8 @@
 class Card {
-    constructor(){
+    constructor(id, title, text, position){
         this.id = id;
-        this.title = Title;
-        this.text = Text;
-        this.position = Position;
+        this.title = title;
+        this.text = text;
+        this.position = position;
     }
 }
