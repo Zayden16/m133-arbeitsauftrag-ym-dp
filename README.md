@@ -1,5 +1,5 @@
 # M133 Arbeitsauftrag Kanban Board
-
+![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/zayden16/m133-arbeitsauftrag-ym-sk?style=for-the-badge)  
 Simon Krieger & Yazdan Musa  
 S-INF-18aL
 
