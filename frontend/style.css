@@ -1,0 +1,52 @@
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
+html,
+body {
+    margin: auto;
+    color: white;
+}
+
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -10;
+    background-color: #21235C;
+}
+
+canvas {
+    display: block;
+}
+
+#welcome {
+    font-size: 3em;
+    position: absolute;
+    margin-left: 12%;
+    margin-top: 15%;
+}
+
+#enter{
+    position: absolute;
+    margin-left: 12%;
+    margin-top: 19%;
+    width: 200px;
+    height: 50px;
+    font-size: 2em;
+    border-style: none;
+    color: #21235C;
+    background-color: #cc6633;
+}
+
+#enter:hover{
+    background-color: #21235C;   
+    color: #cc6633;
+    transition: 0.3s;
+
+}
+
+#logo{
+    height: 10em;
+    position: absolute;
+}
