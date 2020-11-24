@@ -9,7 +9,7 @@ body {
 }
 
 #app-body,
-#app-html{
+#app-html {
     height: 100%;
     width: 100%;
     background-color: #21235c;
@@ -67,13 +67,13 @@ canvas {
     align-content: center;
 }
 
-nav{
+nav {
     height: 6em;
     background-color: #212121;
     display: flex;
     align-items: center;
     align-content: center;
-    }
+}
 
 nav a {
     margin: 20px;
@@ -81,11 +81,11 @@ nav a {
     color: #cc6633;
 }
 
-#nav-logo{
+#nav-logo {
     max-height: 100%;
 }
 
-#app-flex-container{
+#app-flex-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -93,10 +93,43 @@ nav a {
     align-content: center;
 }
 
-#board{
-    height: 85%;
-    width: 95%;
-    background-color: black;
+#board {
+    width: auto;
+    background-color: #212121;
     margin: auto;
     margin-top: 3em;
+    display: flex;
+    justify-content: center;
+}
+
+.card-list {
+    display: flex;
+    flex-direction: column;
+    padding: 3rem;
+}
+
+.card {
+    height: 10em;
+    width: 20em;
+    min-width: 10em;
+    padding: 1.5rem;
+    border-radius: 16px;
+    background: #cc6633;
+    box-shadow: -2.5rem 0 2rem black;
+    display: flex;
+    flex-direction: row;
+    margin-top: 1em;
+    transition: .2s;
+    scroll-snap-align: start;
+    clear: both;
+    position: relative;
+}
+
+
+.card:hover {
+    transform: translateY(-1rem);
+    background: #009FFF;
+    background: -webkit-linear-gradient(to left, #ec2F4B, #009FFF); 
+    background: linear-gradient(to left, #ec2F4B, #009FFF); /
+
 }
