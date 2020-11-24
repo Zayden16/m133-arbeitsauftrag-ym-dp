@@ -81,6 +81,7 @@ nav a {
     color: #cc6633;
 }
 
+
 #nav-logo {
     max-height: 100%;
 }
@@ -94,12 +95,17 @@ nav a {
 }
 
 #board {
+    display: flex;
+    flex-direction: column
+}
+
+.swimlanes, .titles{
     width: auto;
     background-color: #212121;
     margin: auto;
     margin-top: 3em;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
 .card-list {
@@ -111,7 +117,7 @@ nav a {
 .card {
     height: 10em;
     width: 20em;
-    min-width: 10em;
+    min-width: 5em;
     padding: 1.5rem;
     border-radius: 16px;
     background: #cc6633;
@@ -125,11 +131,9 @@ nav a {
     position: relative;
 }
 
-
 .card:hover {
     transform: translateY(-1rem);
     background: #009FFF;
     background: -webkit-linear-gradient(to left, #ec2F4B, #009FFF); 
     background: linear-gradient(to left, #ec2F4B, #009FFF); /
-
 }
