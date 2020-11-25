@@ -9,19 +9,19 @@ const router = new Router();
 var cards = [];
 
 router
-  .get("/LoadCards", (context) => context.response.body = cards)
-  .post("/AddCard", async (context) => {
+  .get("/api/LoadCards", (context) => context.response.body = cards)
+  .post("/api/AddCard", async (context) => {
     var card = await context.request.body({ type: "json" }).value;
     cards = [
       ...cards,
       card,
     ];
   })
-  .delete("/DelCard:id", (context) => {
+  .delete("/api/DelCard:id", (context) => {
     var id = context.params.id;
     cards = cards.filter((card) => card.id != id);
   })
-  .patch("/MovCard:id", async (context) => {
+  .patch("/api/MovCard:id", async (context) => {
     var card = await context.request.body({ type: "json" }).value;
     var id = context.params.id;
     var index = cards.findIndex((card) => card.id == id);
