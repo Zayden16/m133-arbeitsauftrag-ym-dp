@@ -134,7 +134,7 @@ nav a {
 
 .card:hover {
     scale: 1.07;
-    color: wheat;
+    color: white;
     background: #009FFF;
     background: -webkit-linear-gradient(to left, #ec2F4B, #009FFF); 
     background: linear-gradient(to left, #ec2F4B, #009FFF);
