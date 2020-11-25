@@ -29,15 +29,24 @@ var cards = [
 ];
 
 router
-  .get("/api/LoadCards", (context) => context.response.body = cards)
+  .get("/api/LoadCards", (context) => {
+    context.response.status = 200;
+    context.response.body = cards;
+  })
   .post("/api/AddCard", async (context) => {
     addCard(context);
+    context.response.status = 200;
+    context.response.body = {message: "Success"};
   })
   .delete("/api/DelCard/:id", (context) => {
     deleteCard(context);
+    context.response.status = 200;
+    context.response.body = {message: "Success"};
   })
   .patch("/api/MovCard/:id", async (context) => {
     updateCard(context);
+    context.response.status = 200;
+    context.response.body = {message: "Success"};
   });
 
 app.use(router.routes());
