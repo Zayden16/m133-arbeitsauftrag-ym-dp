@@ -25,15 +25,16 @@ for (let i = 0; i < listItems.length; i++) {
 
         list.addEventListener('dragover', function (e) {
             e.preventDefault();
+            this.style.backgroundColor = '#cc6633';
         });
 
         list.addEventListener('dragenter', function (e) {
             e.preventDefault();
-            this.style.backgroundColor = 'rgba(0, 0, 0, 0.2)';
+            this.style.backgroundColor = '#323234';
         });
 
         list.addEventListener('dragleave', function (e) {
-            this.style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
+            this.style.backgroundColor = '#212121';
         });
 
         list.addEventListener('drop', function (e) {
