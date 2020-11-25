@@ -99,7 +99,7 @@ nav a {
     flex-direction: column
 }
 
-.swimlanes, .titles{
+.swimlanes{
     width: auto;
     background-color: #212121;
     margin: auto;
@@ -115,12 +115,13 @@ nav a {
 }
 
 .card {
+    color: #cc6633;
     height: 10em;
     width: 20em;
     min-width: 5em;
     padding: 1.5rem;
     border-radius: 16px;
-    background: #cc6633;
+    background: white;
     box-shadow: -2.5rem 0 2rem black;
     display: flex;
     flex-direction: row;
@@ -133,7 +134,21 @@ nav a {
 
 .card:hover {
     transform: translateY(-1rem);
+    color: wheat;
     background: #009FFF;
     background: -webkit-linear-gradient(to left, #ec2F4B, #009FFF); 
-    background: linear-gradient(to left, #ec2F4B, #009FFF); /
+    background: linear-gradient(to left, #ec2F4B, #009FFF);
+}
+
+.svg-circleplus { height: 40px; stroke: white; }
+
+.vertbtn{
+    border: none;
+    transition: 0.2s;
+    background-color: #212121;
+}
+
+.vertbtn:hover{
+    scale: 105%;
+    background-color: #cc6633;
 }
