@@ -1,10 +1,9 @@
-function load() {   
-    getCards( function (isValid, response) {
-        if (isValid) {
-            createCards(response);
-            addDragEvents();
-        }
-    });
+var cardId = 0;
+
+function load() {
+    document.querySelector("#add").addEventListener("click", addCard);
+
+    getCards();
 }
 
 function addDragEvents() {
@@ -61,7 +60,9 @@ function getCards(callback) {
         .then(
             function (response) {
                 response.json().then(function (data) {
-                    callback(true, data);
+                    cardId = data.length;
+                    createCards(data);
+                    addDragEvents();
                 });
             }
         )
@@ -90,12 +91,33 @@ function createCards(cards) {
 
         if (cards[i].position == 1) { // In Progress
             inProgress.innerHTML += card;
-          
+
         } else if (cards[i].position == 2) { // Done  
             done.innerHTML += card;
-        
+
         } else { // To Do
             todo.innerHTML += card;
         }
     }
+}
+
+function addCard() {
+    cardId++
+
+    var card = {
+        id: cardId,
+        title: "Test Title " + cardId,
+        text: "Test Text " + cardId,
+        position: 0
+    }
+
+    fetch("/api/AddCard", {
+        body: JSON.stringify(card),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: "POST"
+    });
+
+    getCards();
 }
