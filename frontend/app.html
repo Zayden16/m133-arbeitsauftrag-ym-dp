@@ -7,9 +7,10 @@
     <title>Canban Board</title>
     <link rel="stylesheet" href="style.css" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400&display=swap" rel="stylesheet" />
+    <script src="app.js"></script>
 </head>
 
-<body id="app-body">
+<body id="app-body" onload="load()">
     <div id="app-flex-container"></div>
     <nav>
         <img id="nav-logo" src="media/profile-transparent.png">
@@ -27,84 +28,16 @@
                 <line x1="50" y1="32.5" x2="50" y2="67.5" stroke-width="5"></line>
               </svg></button>
             <section id="todo" class="card-list">
-                <h1>To-Do</h1>
-                <article class="card" draggable="true">
-                    <header class="card-header">
-                        <h3>Tag</h3>
-                        <h2>Title</h2>
-                        <p>Text</p>
-                    </header>
-                </article>
-                <article class="card" draggable="true">
-                    <header class="card-header">
-                        <h3>Tag</h3>
-                        <h2>Title</h2>
-                        <p>Text</p>
-                    </header>
-                </article>
-                <article class="card" draggable="true">
-                    <header class="card-header">
-                        <h3>Tag</h3>
-                        <h2>Title</h2>
-                        <p>Text</p>
-                    </header>
-                </article>
             </section>
 
             <section id="in-progess" class="card-list">
-                <h1>In-Progress</h1>
-                <article class="card" draggable="true">
-                    <header class="card-header">
-                        <h3>Tag</h3>
-                        <h2>Title</h2>
-                        <p>Text</p>
-                    </header>
-                </article>
-                <article class="card" draggable="true">
-                    <header class="card-header">
-                        <h3>Tag</h3>
-                        <h2>Title</h2>
-                        <p>Text</p>
-                    </header>
-                </article>
-                <article class="card" draggable="true">
-                    <header class="card-header">
-                        <h3>Tag</h3>
-                        <h2>Title</h2>
-                        <p>Text</p>
-                    </header>
-                </article>
             </section>
 
             <section id="done" class="card-list">
-                <h1>Done</h1>
-                <article class="card" draggable="true">
-                    <header class="card-header">
-                        <h3>Tag</h3>
-                        <h2>Title</h2>
-                        <p>Text</p>
-                    </header>
-                </article>
-                <article class="card" draggable="true">
-                    <header class="card-header">
-                        <h3>Tag</h3>
-                        <h2>Title</h2>
-                        <p>Text</p>
-                    </header>
-                </article>
-                <article class="card" draggable="true">
-                    <header class="card-header">
-                        <h3>Tag</h3>
-                        <h2>Title</h2>
-                        <p>Text</p>
-                    </header>
-                </article>
             </section>
         </div>
 
     </div>
-
-    <script src="app.js"></script>
 </body>
 
 </html>
