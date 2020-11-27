@@ -6,7 +6,7 @@ function load() {
     getCards();
 }
 
-function addDragEvents() {
+function addEvents() {
     const listItems = document.querySelectorAll('.card');
     const lists = document.querySelectorAll('.card-list');
 
@@ -60,9 +60,9 @@ function getCards(callback) {
         .then(
             function (response) {
                 response.json().then(function (data) {
-                    cardId = data.length;
+                    cardId = data[data.length - 1].id;
                     createCards(data);
-                    addDragEvents();
+                    addEvents();
                 });
             }
         )
