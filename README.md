@@ -5,9 +5,10 @@ Simon Krieger & Yazdan Musa
 S-INF-18aL
 
 ## :scroll: Table of contents
-* [General info](#general-info)
-* [Technologies](#technologies)
-* [Setup](#setup)
+* [General info](#:information_source:-general-info)
+* [Live Demo](#:eyes:-live-demo)
+* [Technologies](#:dna:-technologies)
+* [Setup](#:flight_departure:-setup)
 
 ## :information_source: General info
 This project is part of the M113 in BBZW Sursee. We were tasked to build a simple Canban Board using what we learned in the course
