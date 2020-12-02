@@ -82,13 +82,13 @@ function createCards(cards) {
     done.innerHTML = "<h1>Done</h1>";
 
     for (var i = 0; i < cards.length; i++) {
-        var card = `<article class="card" draggable="true">
+        var card = `<article class="card" draggable="true" id="${cards[i].id}">
                         <header class="card-header">
                             <h2>${cards[i].title}</h2>
                             <p>${cards[i].text}</p>
                         </header>
+                        <button class="delete-btn" onclick="deleteCard(event)">❌</button>
                     </article>`;
-
         if (cards[i].position == 1) { // In Progress
             inProgress.innerHTML += card;
 
@@ -120,4 +120,14 @@ function addCard() {
     });
 
     getCards();
+}
+
+function deleteCard(ev) {
+    var Button = ev.target.parentNode;
+    var BtnId = ev.target.parentNode.id;
+    fetch("/api/DelCard/" + BtnId, {
+        method: "DELETE"
+    });
+    getCards();
+    return Button.remove();
 }
