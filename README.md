@@ -10,19 +10,19 @@ S-INF-18aL
 * [Setup](#setup)
 
 ## General info
-This project is simple Lorem ipsum dolor generator.
-	
+This project is part of the M113 in BBZW Sursee. We were tasked to build a simple Canban Board using what we learned in the course
+
+## Live Demo
+A Live Demo is available here: https://canban.zayden.ch/
+
 ## Technologies
 Project is created with:
-* Lorem version: 12.3
-* Ipsum version: 2.33
-* Ament library version: 999
+* Deno
+* Oak Framework
 	
 ## Setup
-To run this project, install it locally using npm:
+To run this project, clone the repository & install deno from [here](https://deno.land/manual/getting_started/installation)
 
 ```
-$ cd ../lorem
-$ npm install
-$ npm start
+deno run --allow-net --allow-read ./backend/backend.js
 ```
