@@ -152,3 +152,16 @@ nav a {
     scale: 105%;
     background-color: #cc6633;
 }
+
+.delete-btn{
+    width: 50px;
+    height: 50px;
+    border: none;
+    background-color: #525252;
+    border-radius: 500px;
+}
+
+.delete-btn:hover{
+    background-color: #cc6633;
+    scale: 105%;
+}
