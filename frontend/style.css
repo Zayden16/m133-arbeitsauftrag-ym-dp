@@ -47,8 +47,9 @@ canvas {
 }
 
 #enter:hover {
+    scale: 110%;
     background-color: #cc6633;
-    transition: 0.5s;
+    transition: 0.2s;
 }
 
 #logo {
@@ -78,7 +79,7 @@ nav {
 nav a {
     margin: 20px;
     font-size: 1.5em;
-    color: #cc6633;
+    color: white;
 }
 
 
@@ -101,6 +102,7 @@ nav a {
 
 .swimlanes{
     width: auto;
+    min-width: 300px;
     background-color: #212121;
     margin: auto;
     margin-top: 3em;
@@ -115,7 +117,7 @@ nav a {
 }
 
 .card {
-    color: #cc6633;
+    color: #212121;
     height: 10em;
     width: 20em;
     min-width: 5em;
@@ -157,11 +159,44 @@ nav a {
     width: 50px;
     height: 50px;
     border: none;
-    background-color: #525252;
+    background-color: #212121;
     border-radius: 500px;
+    transition: 0.2s;
+}
+
+.card-header{
+    width: 85%;
 }
 
 .delete-btn:hover{
-    background-color: #cc6633;
-    scale: 105%;
+    background-color: white;
+    scale: 150%;
 }
+
+.modal {
+    display: none; 
+    position: fixed;
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+  }
+
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }

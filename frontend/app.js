@@ -1,5 +1,20 @@
 var cardId = 0;
 
+var modal = document.getElementById("modal");
+var btn = document.getElementById("add");
+var span = document.getElementsByClassName("close")[0];
+
+btn.onclick = function () {
+    modal.style.display = "block";
+}
+span.onclick = function () {
+    modal.style.display = "none";
+}
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
 function load() {
     document.querySelector("#add").addEventListener("click", addCard);
 
@@ -108,7 +123,7 @@ function createCards(cards) {
         var card = `<article class="card" draggable="true" id="${cards[i].id}">
                         <header class="card-header">
                             <h2>${cards[i].title}</h2>
-                            <p>${cards[i].text}</p>
+                            <p>${cards[i].text} loremipsum dolor sit amet dolor puli  askdlfj sadlkfjasd asdkljfaslkjfd </p>
                         </header>
                         <button class="delete-btn" onclick="deleteCard(event)">❌</button>
                     </article>`;
