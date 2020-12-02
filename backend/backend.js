@@ -28,7 +28,29 @@ var cards = [
   }
 ];
 
+var lanes = [
+  {
+    id: 0,
+    title: "To-Do",
+    tag: "todo"
+  },
+  {
+    id: 1,
+    title: "In-Progress",
+    tag: "in-progess"
+  },
+  {
+    id: 2,
+    title: "Done",
+    tag: "done"
+  }
+]
+
 router
+  .get("/api/LoadLanes", (context) => {
+    context.response.status = 200;
+    context.response.body = lanes;
+  })
   .get("/api/LoadCards", (context) => {
     context.response.status = 200;
     context.response.body = cards;

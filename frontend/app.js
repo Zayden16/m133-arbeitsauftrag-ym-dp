@@ -1,85 +1,108 @@
 var cardId = 0;
 
 function load() {
-    document.querySelector("#add").addEventListener("click", addCard);
+  document.querySelector("#add").addEventListener("click", addCard);
 
-    getCards();
+  getLanes();
+  getCards();
 }
 
 function addEvents() {
-    const listItems = document.querySelectorAll('.card');
-    const lists = document.querySelectorAll('.card-list');
+  const listItems = document.querySelectorAll(".card");
+  const lists = document.querySelectorAll(".card-list");
 
-    let draggedItem = null;
+  let draggedItem = null;
 
-    for (let i = 0; i < listItems.length; i++) {
-        const item = listItems[i];
+  for (let i = 0; i < listItems.length; i++) {
+    const item = listItems[i];
 
-        item.addEventListener('dragstart', function () {
-            draggedItem = item;
-            setTimeout(function () {
-                item.style.display = 'none';
-            }, 0)
-        });
+    item.addEventListener("dragstart", function () {
+      draggedItem = item;
+      setTimeout(function () {
+        item.style.display = "none";
+      }, 0);
+    });
 
-        item.addEventListener('dragend', function () {
-            setTimeout(function () {
-                draggedItem.style.display = 'block';
-                draggedItem = null;
-            }, 0);
-        })
+    item.addEventListener("dragend", function () {
+      setTimeout(function () {
+        draggedItem.style.display = "block";
+        draggedItem = null;
+      }, 0);
+    });
 
-        for (let j = 0; j < lists.length; j++) {
-            const list = lists[j];
+    for (let j = 0; j < lists.length; j++) {
+      const list = lists[j];
 
-            list.addEventListener('dragover', function (e) {
-                e.preventDefault();
-                this.style.backgroundColor = '#cc6633';
-            });
+      list.addEventListener("dragover", function (e) {
+        e.preventDefault();
+        this.style.backgroundColor = "#cc6633";
+      });
 
-            list.addEventListener('dragenter', function (e) {
-                e.preventDefault();
-                this.style.backgroundColor = '#323234';
-            });
+      list.addEventListener("dragenter", function (e) {
+        e.preventDefault();
+        this.style.backgroundColor = "#323234";
+      });
 
-            list.addEventListener('dragleave', function (e) {
-                this.style.backgroundColor = '#212121';
-            });
+      list.addEventListener("dragleave", function (e) {
+        this.style.backgroundColor = "#212121";
+      });
 
-            list.addEventListener('drop', function (e) {
-                console.log('drop');
-                this.append(draggedItem);
-                this.style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
-            });
-        }
+      list.addEventListener("drop", function (e) {
+        console.log("drop");
+        this.append(draggedItem);
+        this.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+      });
     }
+  }
 }
 
-function getCards(callback) {
-    fetch('/api/LoadCards')
-        .then(
-            function (response) {
-                response.json().then(function (data) {
-                    cardId = data[data.length - 1].id;
-                    createCards(data);
-                    addEvents();
-                });
-            }
-        )
-        .catch(function (err) {
-            callback(false, err);
-            console.log('Fetch Error :-S', err);
+function getLanes() {
+  fetch("/api/LoadLanes")
+    .then(
+      function (response) {
+        response.json().then(function (data) {
+          createLanes(data);
         });
+      },
+    )
+    .catch(function (err) {
+      console.log("Fetch Error :-S", err);
+    });
+}
+
+function getCards() {
+  fetch("/api/LoadCards")
+    .then(
+      function (response) {
+        response.json().then(function (data) {
+          cardId = data[data.length - 1].id;
+          createCards(data);
+          addEvents();
+        });
+      },
+    )
+    .catch(function (err) {
+      console.log("Fetch Error :-S", err);
+    });
+}
+
+function createLanes(lanes) {
+  var parent = document.querySelector("#lanesContainer");
+  for (var i = 0; i < lanes.length; i++) {
+    var lane = `<section id="${lanes[i].tag}" class="card-list"></section>`;
+
+    parent.innerHTML += lane;
+  }
 }
 
 function createCards(cards) {
-    var todo = document.querySelector("#todo");
-    var inProgress = document.querySelector("#in-progess");
-    var done = document.querySelector("#done");
+  var todo = document.querySelector("#todo");
+  var inProgress = document.querySelector("#in-progess");
+  var done = document.querySelector("#done");
 
-    todo.innerHTML = "<h1>To-Do</h1>";
-    inProgress.innerHTML = "<h1>In-Progress</h1>";
-    done.innerHTML = "<h1>Done</h1>";
+  todo.innerHTML = "<h1>To-Do</h1>";
+  inProgress.innerHTML = "<h1>In-Progress</h1>";
+  done.innerHTML = "<h1>Done</h1>";
 
     for (var i = 0; i < cards.length; i++) {
         var card = `<article class="card" draggable="true" id="${cards[i].id}">
@@ -99,27 +122,28 @@ function createCards(cards) {
             todo.innerHTML += card;
         }
     }
+  }
 }
 
 function addCard() {
-    cardId++
+  cardId++;
 
-    var card = {
-        id: cardId,
-        title: "Test Title " + cardId,
-        text: "Test Text " + cardId,
-        position: 0
-    }
+  var card = {
+    id: cardId,
+    title: "Test Title " + cardId,
+    text: "Test Text " + cardId,
+    position: 0,
+  };
 
-    fetch("/api/AddCard", {
-        body: JSON.stringify(card),
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        method: "POST"
-    });
+  fetch("/api/AddCard", {
+    body: JSON.stringify(card),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+  });
 
-    getCards();
+  getCards();
 }
 
 function deleteCard(ev) {
