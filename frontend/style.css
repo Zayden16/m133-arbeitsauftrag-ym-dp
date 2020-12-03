@@ -12,7 +12,7 @@ body {
 #app-html {
     height: 100%;
     width: 100%;
-    background-color: #21235c;
+    background-color: #2b2b2b;
 }
 
 a {
@@ -48,6 +48,7 @@ canvas {
 
 #enter:hover {
     scale: 110%;
+    -webkit-transform: scale(1.1, 1.1);
     background-color: #cc6633;
     transition: 0.2s;
 }
@@ -82,7 +83,6 @@ nav a {
     color: white;
 }
 
-
 #nav-logo {
     max-height: 100%;
 }
@@ -100,7 +100,11 @@ nav a {
     flex-direction: column
 }
 
-.swimlanes{
+textarea {
+    resize: none;
+}
+
+.swimlanes {
     width: auto;
     min-width: 300px;
     background-color: #212121;
@@ -135,27 +139,31 @@ nav a {
 }
 
 .card:hover {
-    scale: 1.07;
+    -webkit-transform: scale(1.07, 1.07);
     color: white;
     background: #009FFF;
-    background: -webkit-linear-gradient(to left, #ec2F4B, #009FFF); 
+    background: -webkit-linear-gradient(to left, #ec2F4B, #009FFF);
     background: linear-gradient(to left, #ec2F4B, #009FFF);
 }
 
-.svg-circleplus { height: 40px; stroke: white; }
+.svg-circleplus {
+    height: 40px;
+    stroke: white;
+}
 
-.vertbtn{
+.vertbtn {
     border: none;
     transition: 0.2s;
     background-color: #212121;
 }
 
-.vertbtn:hover{
+.vertbtn:hover {
     scale: 105%;
+    -webkit-transform: scale(1.05, 1.05);
     background-color: #cc6633;
 }
 
-.delete-btn{
+.delete-btn {
     width: 50px;
     height: 50px;
     border: none;
@@ -164,39 +172,79 @@ nav a {
     transition: 0.2s;
 }
 
-.card-header{
+.delete-btn:hover {
+    background-color: white;
+    -webkit-transform: scale(1.50, 1.50);
+}
+
+.card-header {
     width: 85%;
 }
 
-.delete-btn:hover{
-    background-color: white;
-    scale: 150%;
-}
-
 .modal {
-    display: none; 
+    display: none;
     position: fixed;
-    z-index: 1; 
+    z-index: 1;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
-  }
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+}
 
-  .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
-  }
+.modal-content {
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
-  .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-  }
+.modal-item {
+    margin: 0.5em;
+    height: 2em;
+    width: 20em;
+}
+
+.modal-btn {
+    width: 50px;
+    height: 50px;
+    border: none;
+    background-color: #212121;
+    border-radius: 500px;
+    transition: 0.2s;
+}
+
+.modal-btn:hover {
+    background-color: white;
+    -webkit-transform: scale(1.50, 1.50);
+}
+
+#text {
+    height: 4em;
+}
+
+#btn-container {
+    display: flex;
+    flex-direction: row;
+}
+
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}

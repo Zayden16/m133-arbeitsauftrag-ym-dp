@@ -7,7 +7,6 @@
     <title>Canban Board</title>
     <link rel="stylesheet" href="style.css" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400&display=swap" rel="stylesheet" />
-    <script src="app.js"></script>
 </head>
 
 <body id="app-body" onload="load()">
@@ -21,22 +20,26 @@
     </nav>
     <div id="board">
         <div id="lanesContainer" class="swimlanes">
-            <button id="add" class="vertbtn">
+            <button id="add" class="vertbtn" onclick="showModalInput()">
                 <svg class="svg-circleplus" viewBox="0 0 100 100">
                     <circle cx="50" cy="50" r="45" fill="none" stroke-width="7.5"></circle>
                     <line x1="32.5" y1="50" x2="67.5" y2="50" stroke-width="5"></line>
                     <line x1="50" y1="32.5" x2="50" y2="67.5" stroke-width="5"></line>
                 </svg>
             </button>
-            <div class="modal" id="modal">
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <input type="text" name="title" id="title">
-                    <input type="text" name="text" id="text">
-                </div>
+            <div class="modal" id="modal-input">
+                <form class="modal-content">
+                    <input class="modal-item" type="text" name="title" placeholder="Title" id="title">
+                    <textarea class="modal-item" rows="10" cols="35" placeholder="Text" name="text"
+                        id="text"></textarea>
+                    <div id="btn-container">
+                        <button class="modal-btn modal-item" onclick="closeModalInput()">❌</button>
+                        <button class="modal-btn modal-item" onclick="">✔️</button>
+                    </div>
+                </form>
             </div>
         </div>
-
+        <script src="app.js"></script>
     </div>
 </body>
 

@@ -1,23 +1,17 @@
 var cardId = 0;
 
-var modal = document.getElementById("modal");
-var btn = document.getElementById("add");
-var span = document.getElementsByClassName("close")[0];
+function showModalInput() {
+    let modal = document.getElementById("modal-input");
+    modal.style.display="block";
+}
 
-btn.onclick = function () {
-    modal.style.display = "block";
+function closeModalInput(){
+    let modal = document.getElementById("modal-input");
+    modal.style.display="none";
 }
-span.onclick = function () {
-    modal.style.display = "none";
-}
-window.onclick = function (event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
+
 function load() {
     document.querySelector("#add").addEventListener("click", addCard);
-
     getLanes();
     getCards();
 }
