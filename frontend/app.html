@@ -28,15 +28,15 @@
                 </svg>
             </button>
             <div class="modal" id="modal-input">
-                <form class="modal-content">
+                <div class="modal-content">
                     <input class="modal-item" type="text" name="title" placeholder="Title" id="title">
                     <textarea class="modal-item" rows="10" cols="35" placeholder="Text" name="text"
                         id="text"></textarea>
                     <div id="btn-container">
-                        <button class="modal-btn modal-item" onclick="closeModalInput()">❌</button>
-                        <button class="modal-btn modal-item" onclick="">✔️</button>
+                        <button type="reset" class="modal-btn modal-item" onclick="closeModalInput()">❌</button>
+                        <button type="submit" class="modal-btn modal-item" onclick="crutchCloseAndAdd()">✔️</button>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
         <script src="app.js"></script>

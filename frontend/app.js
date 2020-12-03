@@ -16,6 +16,16 @@ function load() {
     getCards();
 }
 
+function crutchCloseAndAdd() {
+    addCard();
+    closeModalInput();
+
+    document.getElementById("title").value='';
+    document.getElementById("text").value='';
+}
+
+
+
 function addEvents() {
     const listItems = document.querySelectorAll(".card");
     const lists = document.querySelectorAll(".card-list");
@@ -84,7 +94,6 @@ function getCards() {
         .then(
             function (response) {
                 response.json().then(function (data) {
-                    cardId = data[data.length - 1].id;
                     createCards(data);
                     addEvents();
                 });
@@ -117,7 +126,7 @@ function createCards(cards) {
         var card = `<article class="card" draggable="true" id="${cards[i].id}">
                         <header class="card-header">
                             <h2>${cards[i].title}</h2>
-                            <p>${cards[i].text} loremipsum dolor sit amet dolor puli  askdlfj sadlkfjasd asdkljfaslkjfd </p>
+                            <p>${cards[i].text}</p>
                         </header>
                         <button class="delete-btn" onclick="deleteCard(event)">❌</button>
                     </article>`;
@@ -135,11 +144,13 @@ function createCards(cards) {
 
 function addCard() {
     cardId++;
+    let titleValue = document.getElementById("title").value;
+    let textValue = document.getElementById("text").value;
 
     var card = {
         id: cardId,
-        title: "Test Title " + cardId,
-        text: "Test Text " + cardId,
+        title: titleValue,
+        text: textValue,
         position: 0,
     };
 
