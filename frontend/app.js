@@ -1,31 +1,172 @@
 var cardId = 0;
+var lanesDefinition = [];
 
-function showModalInput() {
-    let modal = document.getElementById("modal-input");
-    modal.style.display="block";
-}
-
-function closeModalInput(){
-    let modal = document.getElementById("modal-input");
-    modal.style.display="none";
-}
-
+// Load lanes and cards
 function load() {
-    document.querySelector("#add").addEventListener("click", addCard);
     getLanes();
+}
+
+// Call to get the lanes from API
+function getLanes(callback) {
+    fetch("/api/LoadLanes")
+        .then(
+            function (response) {
+                response.json().then(function (data) {
+                    createLanes(data);
+                    getCards();
+                });
+            },
+        )
+        .catch(function (err) {
+            console.log("Fetch Error :-S", err);
+            callback(false, err);
+        });
+}
+
+// Call to get the cards from API
+function getCards(callback) {
+    fetch("/api/LoadCards")
+        .then(
+            function (response) {
+                response.json().then(function (data) {
+                    createCards(data);
+                    addEvents();
+                });
+            },
+        )
+        .catch(function (err) {
+            console.log("Fetch Error :-S", err);
+            callback(false, err);
+        });
+}
+
+// Call to add a card
+function addCard() {
+    let titleValue = document.getElementById("title").value;
+    let textValue = document.getElementById("text").value;
+
+    var card = {
+        id: ++cardId,
+        title: titleValue,
+        text: textValue,
+        position: 0,
+    };
+
+    fetch("/api/AddCard", {
+        body: JSON.stringify(card),
+        headers: {
+            "Content-Type": "application/json",
+        },
+        method: "POST",
+    });
+
     getCards();
 }
 
-function crutchCloseAndAdd() {
-    addCard();
-    closeModalInput();
-
-    document.getElementById("title").value='';
-    document.getElementById("text").value='';
+// Call to patch a card
+function updateCard(targetCard, targetLane) {
+    var targetCardId = targetCard.id;
+    fetch("/api/LoadCard/" + targetCardId)
+        .then(
+            function (response) {
+                response.json().then(function (data) {
+                    if (data.length > 0) {
+                        var laneIndex = lanesDefinition.findIndex((lane) => lane.tag == targetLane.target.id);
+                        data[0].position = laneIndex;
+                    }
+                    fetch("/api/MovCard/" + targetCardId, {
+                        body: JSON.stringify(data[0]),
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        method: "PATCH"
+                    });
+                });
+            }
+        )
 }
 
+// Call to delete a card
+function deleteCard(ev) {
+    //var Button = ev.target.parentNode;
+    var targetCardId = ev.target.parentNode.id;
+    fetch("/api/DelCard/" + targetCardId, {
+        method: "DELETE"
+    });
+    //Button.remove();
+    getCards();
+}
 
+// Function to load the lanes into the HTML
+function createLanes(lanes) {
+    var parent = document.querySelector("#lanesContainer");
+    lanesDefinition = lanes;
+    for (var i = 0; i < lanes.length; i++) {
+        var lane = `<section id="${lanes[i].tag}" class="card-list"></section>`;
+        parent.innerHTML += lane;
+    }
+}
 
+// Function to load the cards into the HTML
+function createCards(cards) {
+    var todo = document.querySelector("#todo");
+    var inProgress = document.querySelector("#in-progess");
+    var done = document.querySelector("#done");
+
+    todo.innerHTML = "<h1>To-Do</h1>";
+    inProgress.innerHTML = "<h1>In-Progress</h1>";
+    done.innerHTML = "<h1>Done</h1>";
+
+    for (var i = 0; i < cards.length; i++) {
+        if (cardId < cards[i].id) {
+            cardId = cards[i].id;
+        }
+
+        var card = `<article class="card" draggable="true" id="${cards[i].id}">
+                        <header class="card-header">
+                            <h2>${cards[i].title}</h2>
+                            <p>${cards[i].text}</p>
+                        </header>
+                        <button class="delete-btn" onclick="deleteCard(event)">❌</button>
+                    </article>`;
+        if (cards[i].position == 1) { // In Progress
+            inProgress.innerHTML += card;
+
+        } else if (cards[i].position == 2) { // Done  
+            done.innerHTML += card;
+
+        } else { // To Do
+            todo.innerHTML += card;
+        }
+    }
+}
+
+// Show modal input for adding cards
+function showModalInput() {
+    let modal = document.getElementById("modal-input");
+    modal.style.display = "block";
+}
+
+// Close modal input for adding cards
+function closeModalInput() {
+    let modal = document.getElementById("modal-input");
+    modal.style.display = "none";
+}
+
+// Add card after input
+function crutchCloseAndAdd() {
+    if (document.getElementById("title").value.length > 0 && document.getElementById("text").value.length > 0) {
+        addCard();
+        closeModalInput();
+    
+        document.getElementById("title").value = '';
+        document.getElementById("text").value = '';
+    } else {
+        alert("Please enter Title and Text!");
+    }
+}
+
+// Function to add all events
 function addEvents() {
     const listItems = document.querySelectorAll(".card");
     const lists = document.querySelectorAll(".card-list");
@@ -48,129 +189,31 @@ function addEvents() {
                 draggedItem = null;
             }, 0);
         });
+    }
 
-        for (let j = 0; j < lists.length; j++) {
-            const list = lists[j];
+    for (let j = 0; j < lists.length; j++) {
+        const list = lists[j];
 
-            list.addEventListener("dragover", function (e) {
-                e.preventDefault();
-                this.style.backgroundColor = "#cc6633";
-            });
+        list.addEventListener("dragover", function (e) {
+            e.preventDefault();
+            this.style.backgroundColor = "#cc6633";
+        });
 
-            list.addEventListener("dragenter", function (e) {
-                e.preventDefault();
-                this.style.backgroundColor = "#323234";
-            });
+        list.addEventListener("dragenter", function (e) {
+            e.preventDefault();
+            this.style.backgroundColor = "#323234";
+        });
 
-            list.addEventListener("dragleave", function (e) {
-                this.style.backgroundColor = "#212121";
-            });
+        list.addEventListener("dragleave", function (e) {
+            this.style.backgroundColor = "#212121";
+        });
 
-            list.addEventListener("drop", function (e) {
-                console.log("drop");
+        list.addEventListener("drop", function (e) {
+            if (draggedItem != null) {
+                updateCard(draggedItem, e);
                 this.append(draggedItem);
                 this.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
-            });
-        }
-    }
-}
-
-function getLanes() {
-    fetch("/api/LoadLanes")
-        .then(
-            function (response) {
-                response.json().then(function (data) {
-                    createLanes(data);
-                });
-            },
-        )
-        .catch(function (err) {
-            console.log("Fetch Error :-S", err);
+            }
         });
-}
-
-function getCards() {
-    fetch("/api/LoadCards")
-        .then(
-            function (response) {
-                response.json().then(function (data) {
-                    createCards(data);
-                    addEvents();
-                });
-            },
-        )
-        .catch(function (err) {
-            console.log("Fetch Error :-S", err);
-        });
-}
-
-function createLanes(lanes) {
-    var parent = document.querySelector("#lanesContainer");
-    for (var i = 0; i < lanes.length; i++) {
-        var lane = `<section id="${lanes[i].tag}" class="card-list"></section>`;
-
-        parent.innerHTML += lane;
     }
-}
-
-function createCards(cards) {
-    var todo = document.querySelector("#todo");
-    var inProgress = document.querySelector("#in-progess");
-    var done = document.querySelector("#done");
-
-    todo.innerHTML = "<h1>To-Do</h1>";
-    inProgress.innerHTML = "<h1>In-Progress</h1>";
-    done.innerHTML = "<h1>Done</h1>";
-
-    for (var i = 0; i < cards.length; i++) {
-        var card = `<article class="card" draggable="true" id="${cards[i].id}">
-                        <header class="card-header">
-                            <h2>${cards[i].title}</h2>
-                            <p>${cards[i].text}</p>
-                        </header>
-                        <button class="delete-btn" onclick="deleteCard(event)">❌</button>
-                    </article>`;
-        if (cards[i].position == 1) { // In Progress
-            inProgress.innerHTML += card;
-
-        } else if (cards[i].position == 2) { // Done  
-            done.innerHTML += card;
-
-        } else { // To Do
-            todo.innerHTML += card;
-        }
-    }
-}
-
-function addCard() {
-    cardId++;
-    let titleValue = document.getElementById("title").value;
-    let textValue = document.getElementById("text").value;
-
-    var card = {
-        id: cardId,
-        title: titleValue,
-        text: textValue,
-        position: 0,
-    };
-
-    fetch("/api/AddCard", {
-        body: JSON.stringify(card),
-        headers: {
-            "Content-Type": "application/json",
-        },
-        method: "POST",
-    });
-
-    getCards();
-}
-
-function deleteCard(ev) {
-    var Button = ev.target.parentNode;
-    var BtnId = ev.target.parentNode.id;
-    fetch("/api/DelCard/" + BtnId, {
-        method: "DELETE"
-    });
-    getCards();
-    return Button.remove();
 }
