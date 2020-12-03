@@ -55,6 +55,12 @@ router
     context.response.status = 200;
     context.response.body = cards;
   })
+  .get("/api/LoadCard/:id", (context) => {
+    var id = context.params.id;
+    var card = cards.filter((card) => card.id == id);
+    context.response.status = 200;
+    context.response.body = card;
+  })
   .post("/api/AddCard", async (context) => {
     addCard(context);
     context.response.status = 200;
