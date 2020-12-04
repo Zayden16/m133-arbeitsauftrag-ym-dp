@@ -72,7 +72,7 @@ function updateCard(targetCard, targetLane) {
             function (response) {
                 response.json().then(function (data) {
                     if (data.length > 0) {
-                        var laneIndex = lanesDefinition.findIndex((lane) => lane.tag == targetLane.target.id);
+                        var laneIndex = lanesDefinition.findIndex((lane) => lane.tag == targetLane.id);
                         data[0].position = laneIndex;
                     }
                     fetch("/api/MovCard/" + targetCardId, {
@@ -215,6 +215,12 @@ function addEvents() {
         });
 
         list.addEventListener("drop", function (e) {
+            for (var i = 0; i < e.path.length; i++) {
+                if (e.path[i].nodeName == "SECTION") {
+                    e = e.path[i];
+                    break;
+                }
+            }
             if (draggedItem != null) {
                 updateCard(draggedItem, e);
                 this.append(draggedItem);
