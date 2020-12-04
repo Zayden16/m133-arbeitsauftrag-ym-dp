@@ -185,7 +185,7 @@ function addEvents() {
 
         item.addEventListener("dragend", function () {
             setTimeout(function () {
-                draggedItem.style.display = "block";
+                draggedItem.style.display = "flex";
                 draggedItem = null;
             }, 0);
         });

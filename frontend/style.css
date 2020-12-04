@@ -118,6 +118,7 @@ textarea {
     display: flex;
     flex-direction: column;
     padding: 3rem;
+    min-width: 25em;
 }
 
 .card {

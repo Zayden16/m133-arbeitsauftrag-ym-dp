@@ -85,6 +85,7 @@ app.use(async (context) => {
   });
 });
 app.listen({ port: 8000 });
+console.log("Backend ist running on Port 8000");
 
 async function addCard(context) {
   var card = await context.request.body({ type: "json" }).value;
