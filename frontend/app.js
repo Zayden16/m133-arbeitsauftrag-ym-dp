@@ -48,8 +48,8 @@ function addCard() {
 
     var card = {
         id: ++cardId,
-        title: titleValue,
-        text: textValue,
+        title: sanitizeHTML(titleValue),
+        text: sanitizeHTML(textValue),
         position: laneValue,
     };
 
@@ -223,3 +223,10 @@ function addEvents() {
         });
     }
 }
+
+// Remove Html tags from user input
+function sanitizeHTML(str) {
+	var temp = document.createElement('div');
+	temp.textContent = str;
+	return temp.innerHTML;
+};
