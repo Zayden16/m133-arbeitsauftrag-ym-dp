@@ -44,12 +44,13 @@ function getCards(callback) {
 function addCard() {
     let titleValue = document.getElementById("title").value;
     let textValue = document.getElementById("text").value;
+    let laneValue = document.getElementById("lane").value;
 
     var card = {
         id: ++cardId,
         title: titleValue,
         text: textValue,
-        position: 0,
+        position: laneValue,
     };
 
     fetch("/api/AddCard", {
@@ -88,12 +89,10 @@ function updateCard(targetCard, targetLane) {
 
 // Call to delete a card
 function deleteCard(ev) {
-    //var Button = ev.target.parentNode;
     var targetCardId = ev.target.parentNode.id;
     fetch("/api/DelCard/" + targetCardId, {
         method: "DELETE"
     });
-    //Button.remove();
     getCards();
 }
 
@@ -101,9 +100,10 @@ function deleteCard(ev) {
 function createLanes(lanes) {
     var parent = document.querySelector("#lanesContainer");
     lanesDefinition = lanes;
+
     for (var i = 0; i < lanes.length; i++) {
         var lane = `<section id="${lanes[i].tag}" class="card-list"></section>`;
-        parent.innerHTML += lane;
+        parent.innerHTML += lane;        
     }
 }
 
@@ -143,22 +143,28 @@ function createCards(cards) {
 
 // Show modal input for adding cards
 function showModalInput() {
+    var laneCombobox = document.querySelector("#lane");
+    laneCombobox.innerHTML = "";
+    for (var i = 0; i < lanesDefinition.length; i++) {
+        laneCombobox.innerHTML += "<option value=" + lanesDefinition[i].id + ">" + lanesDefinition[i].title + "</option>"
+    }
+
     let modal = document.getElementById("modal-input");
     modal.style.display = "block";
 }
 
-// Close modal input for adding cards
+// Close modal input without adding a card
 function closeModalInput() {
     let modal = document.getElementById("modal-input");
     modal.style.display = "none";
 }
 
-// Add card after input
+// Close modal input and add card
 function crutchCloseAndAdd() {
     if (document.getElementById("title").value.length > 0 && document.getElementById("text").value.length > 0) {
         addCard();
         closeModalInput();
-    
+
         document.getElementById("title").value = '';
         document.getElementById("text").value = '';
     } else {
